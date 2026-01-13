@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Básicos - TOTY</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* 🎥 Video fondo */
+    .video-fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: black;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-decoration: none;
+      color: white;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin: 40px 0 10px;
+      z-index: 1;
+      position: relative;
+    }
+
+    .descripcion {
+      text-align: center;
+      color: #aaa;
+      margin-bottom: 40px;
+      font-size: 1rem;
+      z-index: 1;
+      position: relative;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 0 40px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .producto {
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .producto:hover {
+      transform: translateY(-5px);
+    }
+
+    /* 👉 Para que el link de T1 no sea azul ni subrayado */
+    .producto-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .producto-link:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .producto img {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 220px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    .producto h3 {
+      margin: 10px 0 5px;
+      font-size: 1.1rem;
+      color: white;
+    }
+
+    .precio {
+      font-family: sans-serif;
+    }
+
+    .producto p {
+      font-size: 0.9rem;
+      color: #ccc;
+      padding-bottom: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .producto img {
+        max-height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎥 VIDEO DE FONDO -->
+  <video class="video-fondo" autoplay muted loop playsinline>
+    <source src="material/basicos/videofondo.mp4" type="video/mp4" />
+    Tu navegador no soporta video.
+  </video>
+
+  <div class="overlay"></div>
+
+  <!-- 🖤 HEADER -->
+  <header>
+    <a href="index.html" class="logo" id="logoToty">TOTY</a>
+    <nav>
+      <a href="catalogo.html">VOLVER AL CATÁLOGO</a>
+    </nav>
+  </header>
+
+  <h1>REMERAS</h1>
+  <p class="descripcion">Diseños simples, materiales nobles. Nuestra línea más esencial, pero igual de única.</p>
+
+  <!-- 📸 GALERÍA -->
+  <section class="galeria">
+    <!-- PRODUCTO 1: T1 CON LINK -->
+    <a href="t1.html" class="producto producto-link">
+      <img src="material/basicos/T1/T1.jpg" alt="T1 - Buzo Básico Negro" />
+      <h3>Take Opportunities, Trust Yourself.</h3>
+      <p>Street pero de lujo</p>
+      <p class="precio">$550</p>
+    </a>
+
+   
+  </section>
+
+</body>
+</html>
