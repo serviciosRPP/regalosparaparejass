@@ -1,83 +1,201 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Para ti</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Cormorant Garamond', serif;
+    :root{
+      --bg1:#07070a;
+      --bg2:#11111a;
+      --card:#0c0c12cc;
+      --border: rgba(180, 160, 255, .18);
+      --glow: rgba(139, 92, 246, .22);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.58);
     }
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+    *{ margin:0; padding:0; box-sizing:border-box; }
+    body{
+      min-height:100vh;
+      font-family:"Cormorant Garamond", serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 20%, rgba(139,92,246,.18), transparent 55%),
+        radial-gradient(700px 450px at 85% 75%, rgba(56,189,248,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      display:grid;
+      place-items:center;
+      padding: 24px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-      animation: fadeIn 1.5s ease-in;
+    /* textura sutil */
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      background-image: radial-gradient(rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 18px 18px;
+      opacity:.35;
+      pointer-events:none;
+      mix-blend-mode: soft-light;
     }
 
-    .title {
-      color: #b0b0b0;
-      letter-spacing: 0.25em;
-      font-size: 1.2rem;
-      margin-bottom: 24px;
-      font-weight: 300;
+    .wrap{
+      width: min(1100px, 100%);
+      display:grid;
+      gap: 18px;
+      grid-template-columns: 1fr;
+      align-items:center;
     }
 
-    .video-box {
-      width: 100%;
-      aspect-ratio: 9 / 16;
+    .card{
+      width:100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset,
+                  0 24px 60px rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      animation: fadeIn .8s ease-out;
+    }
+
+    .header{
+      padding: 18px 18px 10px 18px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 12px;
+    }
+
+    .title{
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: rgba(255,255,255,.82);
+    }
+
+    .subtitle{
+      margin-top: 6px;
+      font-size: clamp(14px, 1.8vw, 16px);
+      color: var(--muted);
+      letter-spacing: .03em;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.86);
+      padding: 10px 12px;
       border-radius: 12px;
-      overflow: hidden;
-      background: black;
-      border: 1px solid rgba(139, 92, 246, 0.25);
-      animation: gentleGlow 4s ease-in-out infinite;
+      font-size: 14px;
+      letter-spacing: .02em;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.09);
+      border-color: rgba(180,160,255,.28);
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .video-shell{
+      position:relative;
+      width:100%;
+      background: #000;
+      border-top: 1px solid rgba(255,255,255,.06);
+      overflow:hidden;
+      /* responsive: en móvil vertical, en desktop más ancho */
+      aspect-ratio: 9 / 16;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    /* En pantallas más grandes, hacemos el video menos “alto” */
+    @media (min-width: 900px){
+      .wrap{ grid-template-columns: 1fr; }
+      .video-shell{ aspect-ratio: 16 / 9; }
+      .header{ padding: 22px 22px 12px 22px; }
     }
 
-    @keyframes gentleGlow {
-      0%, 100% { box-shadow: 0 0 25px rgba(139, 92, 246, 0.15); }
-      50% { box-shadow: 0 0 45px rgba(139, 92, 246, 0.3); }
+    iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    /* glow suave alrededor del video */
+    .video-shell:after{
+      content:"";
+      position:absolute;
+      inset:-18px;
+      border-radius: 22px;
+      pointer-events:none;
+      box-shadow: 0 0 55px var(--glow);
+      opacity:.7;
+      filter: blur(2px);
+    }
+
+    .footer{
+      text-align:center;
+      color: rgba(255,255,255,.38);
+      font-size: 13px;
+      letter-spacing:.06em;
+      padding: 10px 0 0;
+    }
+
+    @keyframes fadeIn{
+      from{ opacity:0; transform: translateY(8px); }
+      to{ opacity:1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="title">PARA TI</div>
+  <div class="wrap">
+    <div class="card">
+      <div class="header">
+        <div>
+          <div class="title">Ronal Coronado y Noelia Nevada</div>
+          <div class="subtitle">NUESTROS MOMENTOS</div>
+        </div>
 
-    <div class="video-box">
-      <iframe
-        src="https://drive.google.com/file/d/1BDg62k60EcNMlFbU2sgInJXC1olZc0a-/preview"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowfullscreen>
-      </iframe>
+        <div class="actions">
+          <!-- Abre el video en Drive en una pestaña nueva (útil en compu) -->
+          <a class="btn" target="_blank" rel="noopener"
+             href="https://drive.google.com/file/d/1tFHLZDHDrPk1Cx8qiZCznzDhAxALgfLi/preview">
+            Pantalla completa
+          </a>
+        </div>
+      </div>
+
+      <div class="video-shell">
+        <iframe
+          src="https://drive.google.com/file/d/1tFHLZDHDrPk1Cx8qiZCznzDhAxALgfLi/preview"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
     </div>
+
+    <div class="footer">TE AMO </div>
   </div>
 </body>
 </html>
